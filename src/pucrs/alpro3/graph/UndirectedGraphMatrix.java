@@ -33,6 +33,7 @@ public class UndirectedGraphMatrix implements UndirectedGraph {
 		int posOrig = names.indexOf(strOrig);
 		int posDest = names.indexOf(strDest);
 		matrix[posOrig][posDest] = true;
+		matrix[posDest][posOrig] = true;
 	}
 
 	@Override
@@ -43,10 +44,10 @@ public class UndirectedGraphMatrix implements UndirectedGraph {
 	@Override
 	public ArrayList<String> getAllAdjacents(String vertice) {
 		ArrayList<String> r = new ArrayList<>();
-		// TODO consultar posicao do vertice
-		// TODO percorrer a linha da posição do vertice
-		// TODO colocar o nome de cada vertice na lista
-		// TODO retornar a lista
+		int pos = names.indexOf(vertice);
+		for (int i = 0; i < matrix.length; i++)
+			if (matrix[pos][i] == true)
+				r.add(names.get(i));
 		return r;
 	}
 
@@ -54,9 +55,8 @@ public class UndirectedGraphMatrix implements UndirectedGraph {
 	public String toString() {
 		String r = "";
 		r += names.toString();
-		for (int i = 0; i < matrix.length; i++) {
+		for (int i = 0; i < matrix.length; i++)
 			r += "\n" + Arrays.toString(matrix[i]);
-		}
 		return r;
 	}
 
