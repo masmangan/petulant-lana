@@ -12,31 +12,33 @@ public class DirectedGraphMatrix extends AbstractGraphMatrix implements
 		matrix[posOrig][posDest] = true;
 	}
 
+	private int getTotalSaidas(int n) {
+		return getAllAdjacents(names.get(n)).size();
+	}
+
+	private int getTotalEntradas(int n) {
+		int entradas = 0;
+		for (int j = 0; j < names.size(); j++)
+			if (matrix[j][n] == true)
+				entradas++;
+		return entradas;
+	}
+
 	@Override
 	public ArrayList<String> getSources() {
 		ArrayList<String> r = new ArrayList<>();
-		for (int i = 0; i < names.size(); i++) {
-			if (!getAllAdjacents(names.get(i)).isEmpty()) {
-				int entradas = 0;
-				for (int j = 0; j < names.size(); j++) {
-					if (matrix[j][i] == true) {
-						entradas++;
-					}
-				}
-				if (entradas == 0) {
-					r.add(names.get(i));
-				}
-			}
-		}
+		for (int i = 0; i < names.size(); i++)
+			if (getTotalSaidas(i) > 0 && getTotalEntradas(i) == 0)
+				r.add(names.get(i));
 		return r;
 	}
 
 	@Override
 	public ArrayList<String> getSinks() {
 		ArrayList<String> r = new ArrayList<>();
-		// TODO para cada vertice
-		// TODO encontrar linha vazia, a coluna não pode estar vazia
-		// TODO acrescentar nome do vertice aa resposta
+		for (int i = 0; i < names.size(); i++)
+			if (getTotalSaidas(i) == 0 && getTotalEntradas(i) > 0)
+				r.add(names.get(i));
 		return r;
 	}
 

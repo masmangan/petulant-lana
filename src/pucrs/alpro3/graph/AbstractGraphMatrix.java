@@ -50,4 +50,14 @@ public abstract class AbstractGraphMatrix {
 		return r;
 	}
 
+	public ArrayList<String> getTraversalWidth(String vertice) {
+		// TODO utilizar fila
+		return null;
+	}
+
+	public ArrayList<String> getTraversalDepth(String vertice) {
+		// TODO utilizar pilha
+		return null;
+	}
+	
 }
