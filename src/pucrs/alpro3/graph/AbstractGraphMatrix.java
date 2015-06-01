@@ -34,7 +34,8 @@ public abstract class AbstractGraphMatrix {
 	public ArrayList<String> getAllAdjacents(String vertice) {
 		ArrayList<String> r = new ArrayList<>();
 		int pos = names.indexOf(vertice);
-		for (int i = 0; i < matrix.length; i++)
+		//for (int i = 0; i < matrix.length; i++)
+        for (int i = 0; i < names.size(); i++)
 			if (matrix[pos][i] == true)
 				r.add(names.get(i));
 		return r;

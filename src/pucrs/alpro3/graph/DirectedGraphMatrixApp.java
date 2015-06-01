@@ -1,8 +1,8 @@
 package pucrs.alpro3.graph;
 
-public class UndirectedGraphMatrixApp {
+public class DirectedGraphMatrixApp {
 	public static void main(String[] args) {
-		UndirectedGraph g = new UndirectedGraphMatrix();
+		DirectedGraph g = new DirectedGraphMatrix();
 		System.out.println(g);
 		g.addVertice("POA");
 		System.out.println(g);
@@ -14,5 +14,6 @@ public class UndirectedGraphMatrixApp {
 		System.out.println(g);
 		g.addEdge("POA", "SDU");
 		System.out.println(g);
+		System.out.println(g.getSources());
 	}
 }
