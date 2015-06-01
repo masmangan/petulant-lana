@@ -15,5 +15,8 @@ public class DirectedGraphMatrixApp {
 		g.addEdge("POA", "SDU");
 		System.out.println(g);
 		System.out.println(g.getSources());
+		System.out.println(g.getSinks());
+		
 	}
+	
 }
