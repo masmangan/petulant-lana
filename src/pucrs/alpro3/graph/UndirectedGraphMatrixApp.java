@@ -14,5 +14,8 @@ public class UndirectedGraphMatrixApp {
 		System.out.println(g);
 		g.addEdge("POA", "SDU");
 		System.out.println(g);
+		
+		System.out.println(g.getTraversalWidth("POA"));
+		System.out.println(g.getTraversalWidth("CWB"));		
 	}
 }
