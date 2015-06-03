@@ -5,17 +5,25 @@ public class UndirectedGraphMatrixApp {
 		UndirectedGraph g = new UndirectedGraphMatrix();
 		System.out.println(g);
 		g.addVertice("POA");
-		System.out.println(g);
-		g.addVertice("SDU");
-		System.out.println(g);
+		g.addVertice("FLP");
 		g.addVertice("CWB");
-		System.out.println(g);
+		g.addVertice("SDU");
+		g.addVertice("GRU");
+		g.addVertice("BHA");
+
 		g.addEdge("POA", "CWB");
-		System.out.println(g);
-		g.addEdge("POA", "SDU");
+		g.addEdge("POA", "FLP");
+		g.addEdge("CWB", "SDU");
+		g.addEdge("CWB", "GRU");
+		g.addEdge("GRU", "BHA");
+		
+		//
 		System.out.println(g);
 		
 		System.out.println(g.getTraversalWidth("POA"));
 		System.out.println(g.getTraversalWidth("CWB"));		
+		
+		System.out.println(g.getTraversalDepth("POA"));
+		System.out.println(g.getTraversalDepth("CWB"));				
 	}
 }

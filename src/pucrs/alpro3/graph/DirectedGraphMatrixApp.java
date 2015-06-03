@@ -18,7 +18,8 @@ public class DirectedGraphMatrixApp {
 		System.out.println(g.getSinks());
 		System.out.println(g.getTraversalWidth("POA"));
 		System.out.println(g.getTraversalWidth("CWB"));
-		
+		System.out.println(g.getTraversalDepth("POA"));
+		System.out.println(g.getTraversalDepth("CWB"));		
 	}
 	
 }
