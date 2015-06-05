@@ -42,4 +42,6 @@ public class DirectedGraphMatrix extends AbstractGraphMatrix implements
 		return r;
 	}
 
+
+
 }

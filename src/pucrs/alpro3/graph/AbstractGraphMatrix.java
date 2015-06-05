@@ -2,6 +2,7 @@ package pucrs.alpro3.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -134,6 +135,7 @@ public abstract class AbstractGraphMatrix {
 		marked = new boolean[names.size()];
 		
 		Path(posOrig, posDest, r);
+		Collections.reverse(r);
 		return r;
 		
 	}
@@ -154,6 +156,16 @@ public abstract class AbstractGraphMatrix {
 		}
 	}
 	
+	public int countNodesReachable(String v) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+	public ArrayList<String> getTwoLevelsAhead(String v) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 }
 
 

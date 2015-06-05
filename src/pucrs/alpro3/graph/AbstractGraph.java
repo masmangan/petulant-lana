@@ -18,4 +18,7 @@ public interface AbstractGraph {
 	
 	public ArrayList<String> Path(String strOrig, String strDest);
 	
+	
+	int countNodesReachable(String v); 
+	ArrayList<String> getTwoLevelsAhead(String v);
 }
