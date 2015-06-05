@@ -15,4 +15,7 @@ public interface AbstractGraph {
 	public ArrayList<String> getTraversalWidth(String vertice);
 
 	public ArrayList<String> getTraversalDepth(String vertice);
+	
+	public ArrayList<String> Path(String strOrig, String strDest);
+	
 }

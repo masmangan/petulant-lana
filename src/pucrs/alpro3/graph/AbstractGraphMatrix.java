@@ -123,4 +123,43 @@ public abstract class AbstractGraphMatrix {
 		return r;
 	}
 
+	private boolean marked[];
+	
+	public ArrayList<String> Path(String strOrig, String strDest) {
+		int posOrig = names.indexOf(strOrig);
+		int posDest = names.indexOf(strDest);	
+		// TODO: verificar se os nodos foram encontrados
+		ArrayList<String> r = new ArrayList<>();
+		
+		marked = new boolean[names.size()];
+		
+		Path(posOrig, posDest, r);
+		return r;
+		
+	}
+
+	private void Path(int posOrig, int posDest, ArrayList<String> r) {
+		marked[posOrig] = true;
+		if (posOrig == posDest) {
+			r.add(names.get(posDest));
+		} else {
+			for (int i = 0; i < names.size(); i++) {
+				if (matrix[posOrig][i] != 0 && !marked[i]) 
+					Path(i, posDest, r);
+					if (!r.isEmpty()) {
+						r.add(names.get(posOrig));
+						break;
+					}
+				}
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+

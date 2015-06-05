@@ -21,10 +21,23 @@ public class PathApp {
 		//
 		System.out.println(g);
 		
-//		System.out.println(g.getTraversalWidth("POA"));
+		System.out.println(g.getTraversalWidth("N1"));
 //		System.out.println(g.getTraversalWidth("CWB"));		
 //		
-//		System.out.println(g.getTraversalDepth("POA"));
-//		System.out.println(g.getTraversalDepth("CWB"));				
+		System.out.println(g.getTraversalDepth("N1"));
+//		System.out.println(g.getTraversalDepth("CWB"));		
+		
+		System.out.println(g.Path("N1", "N7"));
+		
 	}
 }
+
+
+
+
+
+
+
+
+
+
