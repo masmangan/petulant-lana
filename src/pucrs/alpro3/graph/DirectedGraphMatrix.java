@@ -6,10 +6,10 @@ public class DirectedGraphMatrix extends AbstractGraphMatrix implements
 		DirectedGraph {
 
 	@Override
-	public void addEdge(String strOrig, String strDest) {
+	public void addEdge(String strOrig, String strDest, int peso) {
 		int posOrig = names.indexOf(strOrig);
 		int posDest = names.indexOf(strDest);
-		matrix[posOrig][posDest] = true;
+		matrix[posOrig][posDest] = peso;
 	}
 
 	private int getTotalSaidas(int n) {
@@ -19,7 +19,7 @@ public class DirectedGraphMatrix extends AbstractGraphMatrix implements
 	private int getTotalEntradas(int n) {
 		int entradas = 0;
 		for (int j = 0; j < names.size(); j++)
-			if (matrix[j][n] == true)
+			if (matrix[j][n] != 0)
 				entradas++;
 		return entradas;
 	}

@@ -9,11 +9,11 @@ import java.util.Stack;
 
 public abstract class AbstractGraphMatrix {
 
-	protected boolean[][] matrix;
+	protected int[][] matrix;
 	protected List<String> names;
 
 	public AbstractGraphMatrix() {
-		matrix = new boolean[7][7];
+		matrix = new int[7][7];
 		names = new ArrayList<String>();
 	}
 
@@ -42,12 +42,17 @@ public abstract class AbstractGraphMatrix {
 			throw new IllegalArgumentException("Vertice invalido: " + vertice);
 		// for (int i = 0; i < matrix.length; i++)
 		for (int i = 0; i < names.size(); i++)
-			if (matrix[pos][i] == true)
+			if (matrix[pos][i] != 0)
 				r.add(names.get(i));
 		return r;
 	}
 
-	public abstract void addEdge(String strOrig, String strDest);
+	
+	public void addEdge(String strOrig, String strDest) {
+		addEdge(strOrig, strDest, 1);
+	}
+
+	public abstract void addEdge(String strOrig, String strDest, int peso);
 
 	public String toString() {
 		String r = "";
