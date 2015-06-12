@@ -48,7 +48,6 @@ public abstract class AbstractGraphMatrix {
 		return r;
 	}
 
-	
 	public void addEdge(String strOrig, String strDest) {
 		addEdge(strOrig, strDest, 1);
 	}
@@ -125,19 +124,19 @@ public abstract class AbstractGraphMatrix {
 	}
 
 	private boolean marked[];
-	
+
 	public ArrayList<String> Path(String strOrig, String strDest) {
 		int posOrig = names.indexOf(strOrig);
-		int posDest = names.indexOf(strDest);	
+		int posDest = names.indexOf(strDest);
 		// TODO: verificar se os nodos foram encontrados
 		ArrayList<String> r = new ArrayList<>();
-		
+
 		marked = new boolean[names.size()];
-		
+
 		Path(posOrig, posDest, r);
 		Collections.reverse(r);
 		return r;
-		
+
 	}
 
 	private void Path(int posOrig, int posDest, ArrayList<String> r) {
@@ -146,32 +145,91 @@ public abstract class AbstractGraphMatrix {
 			r.add(names.get(posDest));
 		} else {
 			for (int i = 0; i < names.size(); i++) {
-				if (matrix[posOrig][i] != 0 && !marked[i]) 
+				if (matrix[posOrig][i] != 0 && !marked[i])
 					Path(i, posDest, r);
-					if (!r.isEmpty()) {
-						r.add(names.get(posOrig));
-						break;
-					}
+				if (!r.isEmpty()) {
+					r.add(names.get(posOrig));
+					break;
 				}
+			}
 		}
 	}
-	
+
 	public int countNodesReachable(String v) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getTraversalDepth(v).size();
 	}
 
-	
 	public ArrayList<String> getTwoLevelsAhead(String v) {
-		// TODO Auto-generated method stub
-		return null;
-	}	
+		int pos = names.indexOf(v);
+		if (pos == -1)
+			throw new IllegalArgumentException("Vertice invalido: " + 0);
+		ArrayList<String> r = new ArrayList<>();
+		getTwoLevelsAhead(r, 0, v);
+		return r;
+	}
+
+	private void getTwoLevelsAhead(ArrayList<String> r, int depth, String v) {
+		int pos = names.indexOf(v);
+		r.add(names.get(pos));
+		if (depth >= 2)
+			return;
+
+		List<String> adjs = getAllAdjacents(names.get(pos));
+		for (String a : adjs) {
+			if (!r.contains(a)) {
+				getTwoLevelsAhead(r, depth + 1, a);
+			}
+		}
+	}
+
+	public int[] sssp(String v) {
+		// TODO Dijkstra
+		// retorna vetor
+		// fila de prioridades
+		int pos = names.indexOf(v);
+		if (pos == -1)
+			throw new IllegalArgumentException("Vertice invalido: " + 0);
+
+		int[] d = new int[names.size()];
+		for (int i = 0; i < names.size(); i++) {
+			d[i] = Integer.MAX_VALUE;
+		}
+		d[pos] = 0;
+
+		
+		//while ()
+		
+		
+		
+		return d;
+	}
+
+	public int[][] assp() {
+		// TODO Floyd-Warshall
+		// retorna matriz
+		// usa matriz
+
+		int[][] d = new int[matrix.length][matrix.length];
+
+		for (int i = 0; i < d.length; i++) {
+			for (int j = 0; j < d.length; j++) {
+				if (matrix[i][j] == 0 && i != j)
+					d[i][j] = Integer.MAX_VALUE;
+				else
+					d[i][j] = matrix[i][j];
+			}
+		}
+
+		for (int k = 0; k < marked.length; k++) {
+			for (int i = 0; i < marked.length; i++) {
+				for (int j = 0; j < marked.length; j++) {
+					if (d[i][j] > d[i][k] + d[k][j]) {
+						d[i][j] = d[i][k] + d[k][j];
+					}
+				}
+			}
+		}
+		return d;
+	}
+
 }
-
-
-
-
-
-
-
-
