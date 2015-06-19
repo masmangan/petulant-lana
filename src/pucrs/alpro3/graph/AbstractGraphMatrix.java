@@ -232,4 +232,16 @@ public abstract class AbstractGraphMatrix {
 		return d;
 	}
 
+	public void prim() {
+		
+	}
+	
+	public void kruskal () {
+		
+	}
+	
+	public void fordFulkerson(int s, int t) {
+		
+	}
+	
 }
