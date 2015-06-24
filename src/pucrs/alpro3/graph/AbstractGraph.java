@@ -21,4 +21,9 @@ public interface AbstractGraph {
 	
 	int countNodesReachable(String v); 
 	ArrayList<String> getTwoLevelsAhead(String v);
+	
+	
+	public int[][] assp();
+	public int[] sssp(String v);
+		
 }

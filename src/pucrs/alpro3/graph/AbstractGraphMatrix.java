@@ -192,37 +192,58 @@ public abstract class AbstractGraphMatrix {
 
 		int[] d = new int[names.size()];
 		for (int i = 0; i < names.size(); i++) {
-			d[i] = Integer.MAX_VALUE;
+			d[i] = Integer.MAX_VALUE / 4;
 		}
 		d[pos] = 0;
 
-		
-		//while ()
-		
-		
-		
+		LinkedList<Integer> queue = new LinkedList<Integer>();
+		for (int i = 0; i < names.size(); i++) {
+			queue.add(i);
+		}
+
+		while (!queue.isEmpty()) {
+			int current = remove(queue, d);
+			List<String> adjs = getAllAdjacents(names.get(current));
+			for (String a : adjs) {
+				if (queue.contains(names.indexOf(a))) {
+						d[names.indexOf(a)] = Math.min(d[names.indexOf(a)] , d[current]
+								+ matrix[current][names.indexOf(a)]);
+				}
+			}
+		}
+
 		return d;
 	}
 
+	private int remove(LinkedList<Integer> queue, int[] d) {
+		int e = queue.peek();
+		for (int i : queue) {
+			if (d[e] > d[i]) {
+				e = i;
+			}
+		}
+		queue.remove(new Integer(e));
+		//queue.remove(e);
+		
+		return e;
+	}
+
 	public int[][] assp() {
-		// TODO Floyd-Warshall
-		// retorna matriz
-		// usa matriz
 
 		int[][] d = new int[matrix.length][matrix.length];
 
 		for (int i = 0; i < d.length; i++) {
 			for (int j = 0; j < d.length; j++) {
 				if (matrix[i][j] == 0 && i != j)
-					d[i][j] = Integer.MAX_VALUE;
+					d[i][j] = Integer.MAX_VALUE / 4;
 				else
 					d[i][j] = matrix[i][j];
 			}
 		}
 
-		for (int k = 0; k < marked.length; k++) {
-			for (int i = 0; i < marked.length; i++) {
-				for (int j = 0; j < marked.length; j++) {
+		for (int k = 0; k < d.length; k++) {
+			for (int i = 0; i < d.length; i++) {
+				for (int j = 0; j < d.length; j++) {
 					if (d[i][j] > d[i][k] + d[k][j]) {
 						d[i][j] = d[i][k] + d[k][j];
 					}
@@ -233,15 +254,15 @@ public abstract class AbstractGraphMatrix {
 	}
 
 	public void prim() {
-		
+
 	}
-	
-	public void kruskal () {
-		
+
+	public void kruskal() {
+
 	}
-	
+
 	public void fordFulkerson(int s, int t) {
-		
+
 	}
-	
+
 }
