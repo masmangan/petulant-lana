@@ -1,6 +1,7 @@
 package pucrs.alpro3.graph;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface AbstractGraph {
 	void addVertice(String vertice);
@@ -25,5 +26,8 @@ public interface AbstractGraph {
 	
 	public int[][] assp();
 	public int[] sssp(String v);
-		
+
+	public Map<String, String> prim(String r);
+	
+	
 }

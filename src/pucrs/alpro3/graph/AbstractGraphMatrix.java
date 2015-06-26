@@ -3,8 +3,10 @@ package pucrs.alpro3.graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -38,13 +40,13 @@ public abstract class AbstractGraphMatrix {
 
 	public ArrayList<String> getAllAdjacents(String vertice) {
 		ArrayList<String> r = new ArrayList<>();
-		int pos = names.indexOf(vertice);
+		int pos = getVerticeNumber(vertice);
 		if (pos == -1)
 			throw new IllegalArgumentException("Vertice invalido: " + vertice);
 		// for (int i = 0; i < matrix.length; i++)
 		for (int i = 0; i < names.size(); i++)
 			if (matrix[pos][i] != 0)
-				r.add(names.get(i));
+				r.add(getVerticeName(i));
 		return r;
 	}
 
@@ -64,11 +66,11 @@ public abstract class AbstractGraphMatrix {
 
 	public ArrayList<String> getTraversalWidth(String vertice) {
 		// 1. Visite um nodo arbitrário
-		int pos = names.indexOf(vertice);
+		int pos = getVerticeNumber(vertice);
 		if (pos == -1)
 			throw new IllegalArgumentException("Vertice invalido: " + vertice);
 		ArrayList<String> r = new ArrayList<>();
-		r.add(names.get(pos)); // r.add(vertice);
+		r.add(getVerticeName(pos)); // r.add(vertice);
 		// 2. Marque o nodo e coloque-o em uma fila Q
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.add(pos);
@@ -77,13 +79,13 @@ public abstract class AbstractGraphMatrix {
 			// 4. Retire um elemento N de Q
 			int current = queue.remove();
 			// 5. Para cada nodo M (não marcado) adjacente a N
-			List<String> adjs = getAllAdjacents(names.get(current));
+			List<String> adjs = getAllAdjacents(getVerticeName(current));
 			for (String a : adjs) {
 				if (!r.contains(a)) {
 					// 6. Visite M
 					r.add(a);
 					// 7. Coloque M na fila Q
-					queue.add(names.indexOf(a));
+					queue.add(getVerticeNumber(a));
 					// 8. Marque M
 				}
 			}
@@ -93,11 +95,11 @@ public abstract class AbstractGraphMatrix {
 
 	public ArrayList<String> getTraversalDepth(String vertice) {
 		// 1. Visite um nodo arbitrário
-		int pos = names.indexOf(vertice);
+		int pos = getVerticeNumber(vertice);
 		if (pos == -1)
 			throw new IllegalArgumentException("Vertice invalido: " + vertice);
 		ArrayList<String> r = new ArrayList<>();
-		r.add(names.get(pos)); // r.add(vertice);
+		r.add(getVerticeName(pos)); // r.add(vertice);
 		// 2. Marque o nodo e coloque-o em uma pilha S
 		Stack<Integer> pilha = new Stack<Integer>();
 		pilha.push(pos);
@@ -106,7 +108,7 @@ public abstract class AbstractGraphMatrix {
 			// 4. Retire um elemento N de S
 			int current = (int) pilha.pop();
 			// 5. Para cada nodo M (não marcado) adjacente a N
-			List<String> adjs = getAllAdjacents(names.get(current));
+			List<String> adjs = getAllAdjacents(getVerticeName(current));
 			for (String a : adjs) {
 				if (!r.contains(a)) {
 					// 6. Visite M
@@ -115,7 +117,7 @@ public abstract class AbstractGraphMatrix {
 					pilha.push(current);
 					// 8. Marque M
 					// 9. Faça N = M
-					pilha.push(names.indexOf(a));
+					pilha.push(getVerticeNumber(a));
 					break;
 				}
 			}
@@ -126,8 +128,8 @@ public abstract class AbstractGraphMatrix {
 	private boolean marked[];
 
 	public ArrayList<String> Path(String strOrig, String strDest) {
-		int posOrig = names.indexOf(strOrig);
-		int posDest = names.indexOf(strDest);
+		int posOrig = getVerticeNumber(strOrig);
+		int posDest = getVerticeNumber(strDest);
 		// TODO: verificar se os nodos foram encontrados
 		ArrayList<String> r = new ArrayList<>();
 
@@ -142,13 +144,13 @@ public abstract class AbstractGraphMatrix {
 	private void Path(int posOrig, int posDest, ArrayList<String> r) {
 		marked[posOrig] = true;
 		if (posOrig == posDest) {
-			r.add(names.get(posDest));
+			r.add(getVerticeName(posDest));
 		} else {
 			for (int i = 0; i < names.size(); i++) {
 				if (matrix[posOrig][i] != 0 && !marked[i])
 					Path(i, posDest, r);
 				if (!r.isEmpty()) {
-					r.add(names.get(posOrig));
+					r.add(getVerticeName(posOrig));
 					break;
 				}
 			}
@@ -160,7 +162,7 @@ public abstract class AbstractGraphMatrix {
 	}
 
 	public ArrayList<String> getTwoLevelsAhead(String v) {
-		int pos = names.indexOf(v);
+		int pos = getVerticeNumber(v);
 		if (pos == -1)
 			throw new IllegalArgumentException("Vertice invalido: " + 0);
 		ArrayList<String> r = new ArrayList<>();
@@ -169,12 +171,12 @@ public abstract class AbstractGraphMatrix {
 	}
 
 	private void getTwoLevelsAhead(ArrayList<String> r, int depth, String v) {
-		int pos = names.indexOf(v);
-		r.add(names.get(pos));
+		int pos = getVerticeNumber(v);
+		r.add(getVerticeName(pos));
 		if (depth >= 2)
 			return;
 
-		List<String> adjs = getAllAdjacents(names.get(pos));
+		List<String> adjs = getAllAdjacents(getVerticeName(pos));
 		for (String a : adjs) {
 			if (!r.contains(a)) {
 				getTwoLevelsAhead(r, depth + 1, a);
@@ -183,10 +185,8 @@ public abstract class AbstractGraphMatrix {
 	}
 
 	public int[] sssp(String v) {
-		// TODO Dijkstra
-		// retorna vetor
-		// fila de prioridades
-		int pos = names.indexOf(v);
+		// Dijkstra
+		int pos = getVerticeNumber(v);
 		if (pos == -1)
 			throw new IllegalArgumentException("Vertice invalido: " + 0);
 
@@ -203,11 +203,9 @@ public abstract class AbstractGraphMatrix {
 
 		while (!queue.isEmpty()) {
 			int current = remove(queue, d);
-			List<String> adjs = getAllAdjacents(names.get(current));
-			for (String a : adjs) {
-				if (queue.contains(names.indexOf(a))) {
-						d[names.indexOf(a)] = Math.min(d[names.indexOf(a)] , d[current]
-								+ matrix[current][names.indexOf(a)]);
+			for (Integer a : getAllAdjacentsByNumber(current)) {
+				if (queue.contains(a)) {
+					d[a] = Math.min(d[a], d[current] + matrix[current][a]);
 				}
 			}
 		}
@@ -223,8 +221,8 @@ public abstract class AbstractGraphMatrix {
 			}
 		}
 		queue.remove(new Integer(e));
-		//queue.remove(e);
-		
+		// queue.remove(e);
+
 		return e;
 	}
 
@@ -253,8 +251,67 @@ public abstract class AbstractGraphMatrix {
 		return d;
 	}
 
-	public void prim() {
+	public Map<String, String> prim(String node) {
+		int r = getVerticeNumber(node);
+		if (r == -1)
+			throw new IllegalArgumentException("Vertice invalido: " + 0);
 
+		Map<String, String> A = new HashMap<>();
+
+		// Prim, linhas 2,3,5
+		int[] chave = new int[names.size()];
+		for (int i = 0; i < names.size(); i++) {
+			chave[i] = Integer.MAX_VALUE / 4;
+		}
+		chave[r] = 0;
+
+		// Prim, linha 6
+		LinkedList<Integer> Q = new LinkedList<Integer>();
+		for (int i = 0; i < names.size(); i++) {
+			Q.add(i);
+		}
+
+		// Prim, linha 7
+		while (!Q.isEmpty()) {
+			// Prim, linha 8
+			int u = remove(Q, chave);
+			// Prim, linha 9
+			for (Integer v : getAllAdjacentsByNumber(u)) {
+				if (Q.contains(v)) {
+					// Prim, linha 10
+					if (w(u, v) < chave[v]) {
+						// Prim, linha 12
+						chave[v] = w(u, v);
+						A.put(getVerticeName(v), getVerticeName(u));
+					}
+				}
+			}
+		}
+
+		// Prim, linha 13
+		return A;
+
+	}
+
+	private int w(int u, Integer v) {
+		return matrix[u][v];
+	}
+
+	private List<Integer> getAllAdjacentsByNumber(int u) {
+		ArrayList<Integer> r = new ArrayList<>();
+		int pos = u;
+		for (int i = 0; i < names.size(); i++)
+			if (matrix[pos][i] != 0)
+				r.add(i);
+		return r;
+	}
+
+	private int getVerticeNumber(String v) {
+		return names.indexOf(v);
+	}
+
+	private String getVerticeName(int u) {
+		return names.get(u);
 	}
 
 	public void kruskal() {
